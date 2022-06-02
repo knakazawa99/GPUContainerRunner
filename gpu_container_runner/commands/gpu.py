@@ -2,13 +2,16 @@
 import subprocess
 from typing import Dict, List, Union
 
+from gpu_container_runner.lib.logger import Logger
 from gpu_container_runner.value_object.gpu_info import GPUInfo
+
 
 GPU_QUERY = (
     'index',
     'memory.used',
     'memory.total',
 )
+
 
 def get_gpu_info() -> List[GPUInfo]:
     output = run_nvidia_smi()
@@ -23,7 +26,6 @@ def get_gpu_info() -> List[GPUInfo]:
 
     lines = output.decode().split('\n')
     lines = [ line.strip() for line in lines if line.strip() != '' ]
-    print(lines)
     
     return generate_gpu_info(lines)
 
@@ -34,7 +36,7 @@ def run_nvidia_smi() -> Union[str, bool]:
     try:
         output = subprocess.check_output(command, shell=True)
     except subprocess.CalledProcessError as e: 
-        print(e)
+        Logger.warning(e)
         return False
     return output
 

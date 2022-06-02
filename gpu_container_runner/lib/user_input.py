@@ -50,13 +50,21 @@ def input_user():
     '''.format(gpu_info_text=gpu_info_text)).strip())
     image_tag = input('\nimage tag: ')
 
+    print(textwrap.dedent('''
+        Input Log path
+        If you don't need the file, input `n`
+        ex)
+            ・ ./
+    '''.format(gpu_info_text=gpu_info_text)).strip())
+    log_path = input('\nimage tag: ')
+
     return ScriptInfo(
         volume_path=volume_path,
         python_path=file_path,
         gpu_id=gpu_id,
         image_name=image_name,
         image_tag=image_tag,
-        log_path='./'
+        log_path=log_path
     )
 
 def validate_python_path(file_path: str) -> bool:
