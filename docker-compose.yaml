@@ -1,0 +1,10 @@
+version: '3'
+services:
+  python:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: python_container
+    volumes:
+      - ${PWD}/:/var/www/python/
+    tty: true

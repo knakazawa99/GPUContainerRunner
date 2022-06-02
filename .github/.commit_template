@@ -1,0 +1,29 @@
+
+
+# ==== Format ====
+# :emoji: Subject Commit Overview
+#
+# Commit body...
+
+# ==== Emojis ====
+# 🐛  :bug: Bugfix
+# 👌  :ok_hand: Code review changes
+# ✨  :sparkles: New feature
+# 🚧  :construction: Work in progress
+# ⚡️  :zap: Improve performance
+# 🎨  :art: Improve structure / format of the code.
+# ♻️  :recycle: Refactor code
+# 📚  :books: Documentation
+# 🎉  :tada: Initial commit
+# ✅  :white_check_mark: Adding a test
+# 🔥  :fire: Removing code/files
+# 💚  :green_heart: Continuous Integration
+# 💥  :boom: Breaking changes
+# 🚀  :rocket: Deploying stuff
+# 🐳  :whale: Docker
+# 👕  :shirt: Lint
+# 👷  :construction_worker: Adding CI build system
+# 🔧  :wrench: Configuration files
+# ⬆️  :arrow_up: Upgrading dependencies
+# ⬇️  :arrow_down: Downgrading dependencies
+
