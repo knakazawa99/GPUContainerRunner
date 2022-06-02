@@ -1,7 +1,7 @@
 from typing import List
 from unittest import TestCase
 
-from gpu_container_runner.commands.docker import generate_command
+from gpu_container_runner.commands.docker import generate_command, get_image_infos
 from gpu_container_runner.value_object.script_info import ScriptInfo
 
 
@@ -20,3 +20,5 @@ class TestDocker(TestCase):
             command,
             'docker run -it --rm -v volume_path/:/usr/src/myapp -w /usr/src/myapp python:3 python python_path/test.py'
         )
+    def test_get_images(self):
+        get_image_infos()

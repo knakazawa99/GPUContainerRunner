@@ -1,7 +1,9 @@
 from dataclasses import dataclass
 import textwrap
+from typing import List
 
 from gpu_container_runner.commands.gpu import get_gpu_info
+from gpu_container_runner.commands.docker import get_image_infos
 from gpu_container_runner.value_object.script_info import ScriptInfo
 
 
@@ -37,17 +39,20 @@ def input_user():
     '''.format(gpu_info_text=gpu_info_text)).strip())
     gpu_id = input('\ngpu id: ')
     
-
+    docker_image_infos = get_image_infos()
     print(textwrap.dedent('''
         Input docker image name
-
-    '''.format(gpu_info_text=gpu_info_text)).strip())
+        exsit images: {}
+    '''.format(docker_image_infos.keys())).strip())
     image_name = input('\nimage name: ')
+    while not validate_docker_image_name(image_name, docker_image_infos.keys()):
+        print('not exist image')
+        image_name = input('\nimage name: ')
 
     print(textwrap.dedent('''
         Input docker image tag
-
-    '''.format(gpu_info_text=gpu_info_text)).strip())
+        exsit images: {}
+    '''.format(docker_image_infos[image_name])).strip())
     image_tag = input('\nimage tag: ')
 
     print(textwrap.dedent('''
@@ -67,5 +72,10 @@ def input_user():
         log_path=log_path
     )
 
+
 def validate_python_path(file_path: str) -> bool:
     return file_path.endswith('.py')
+
+
+def validate_docker_image_name(image_name: str, images: List[str]) -> bool:
+    return image_name in images
