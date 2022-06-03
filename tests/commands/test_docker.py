@@ -18,7 +18,7 @@ class TestDocker(TestCase):
         command = generate_command(script_info)
         self.assertEqual(
             command,
-            'docker run -it --rm -v volume_path/:/usr/src/myapp -w /usr/src/myapp python:3 python python_path/test.py'
+            'docker run -it --rm --gpus 1 -v volume_path/:/usr/src/myapp -w /usr/src/myapp python:3 python python_path/test.py'
         )
     def test_get_images(self):
         get_image_infos()

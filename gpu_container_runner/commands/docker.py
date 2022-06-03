@@ -41,5 +41,6 @@ def generate_command(script_info: ScriptInfo) -> str:
     image = script_info.image_name
     image_tag = script_info.image_tag
     target_script = script_info.python_path
+    gpu_id = script_info.gpu_id
 
-    return f'docker run -it --rm -v {volumes} -w {working_dir} {image}:{image_tag} python {target_script}'
+    return f'docker run -it --rm --gpus {gpu_id} -v {volumes} -w {working_dir} {image}:{image_tag} python {target_script}'
