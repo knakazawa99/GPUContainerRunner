@@ -1,11 +1,11 @@
 import os
 
-from dotenv import laod_dotenv
+# from dotenv import laod_dotenv
 import slackweb
 
 
 def notify_to_slack(message: str):
-    load_dotenv()
+    # load_dotenv()
     slack = slackweb.Slack(
         url=os.environ.get("SLACK_WEB_HOOK_URL")
     )
