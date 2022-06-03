@@ -14,7 +14,7 @@ def main():
     end = time.strftime('%Y%m%d%H%M')
     
     if script_info.log_path != 'n':
-        log_file_path = script_info.log_path + f'{start}-{end}.log'
+        log_file_path = f'{script_info.log_path}{start}-{end}.log'
         with open(log_file_path, mode='x') as f:
             f.write('\n'.join(result))
     notify_to_slack('終了しました。')
