@@ -4,7 +4,7 @@
 ## :white_check_mark: Setup
 
 :rocket: install
-> sudo python setup.py develop
+> sudo python setup.py develop  
 > sudo pip install -e .
 
 :fire: uninstall
