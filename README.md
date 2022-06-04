@@ -3,17 +3,17 @@
 
 ## :white_check_mark: Setup
 
-:rocket: install
+:rocket: `install`
 > sudo python setup.py develop  
 > sudo pip install -e .
 
-:fire: uninstall
+:fire: `uninstall`
 > sudo python setup.py develop -u  
 
 ## :hammer: Develop
 
-:technologist: run cui
+:technologist: `run cui`
 > pyton -m gpu_container_runner
 
-:test_tube: run test
+:test_tube: `run test`
 > python -m tests
