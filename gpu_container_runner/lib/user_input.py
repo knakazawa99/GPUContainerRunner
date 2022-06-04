@@ -30,8 +30,8 @@ def input_user():
         file_path = input('python script path: ')
 
     gpu_infos = get_gpu_info()
-    gpu_usage = [ f'{gpu_info.id}({gpu_info.memory_usage}%)' for gpu_info in gpu_infos]
-    gpu_info_text = '|'.join(gpu_usage)
+    gpu_usage = [ f'- ID: {gpu_info.id} ({round(gpu_info.memory_usage * 100, 2)}%)' for gpu_info in gpu_infos]
+    gpu_info_text = "\n".join(gpu_usage)
     print(textwrap.dedent('''
         Select use gpu id
         {gpu_info_text}
