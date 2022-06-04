@@ -32,11 +32,8 @@ def input_user():
     gpu_infos = get_gpu_info()
     gpu_usage = [ f'- ID: {gpu_info.id} ({round(gpu_info.memory_usage * 100, 2)}%)' for gpu_info in gpu_infos]
     gpu_info_text = "\n".join(gpu_usage)
-    print(textwrap.dedent('''
-        Select use gpu id
-        {gpu_info_text}
-
-    '''.format(gpu_info_text=gpu_info_text)).strip())
+    print('Select use gpu id')
+    print(textwrap.dedent(f'{gpu_info_text}'.format(gpu_info_text=gpu_info_text)).strip())
     gpu_id = input('\ngpu id: ')
     
     docker_image_infos = get_image_infos()
