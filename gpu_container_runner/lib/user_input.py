@@ -7,7 +7,7 @@ from gpu_container_runner.commands.docker import get_image_infos
 from gpu_container_runner.value_object.script_info import ScriptInfo
 
 
-def input_user():
+def input_user(start_time: str):
     print('GO Deepstation!!')
 
     print(textwrap.dedent('''
@@ -66,7 +66,7 @@ def input_user():
         gpu_id=gpu_id,
         image_name=image_name,
         image_tag=image_tag,
-        log_path=log_path
+        log_path=log_path + start_time + '.log'
     )
 
 

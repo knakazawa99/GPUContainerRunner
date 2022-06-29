@@ -13,12 +13,12 @@ class TestDocker(TestCase):
             gpu_id='1',
             image_name='python',
             image_tag='3',
-            log_path='./'
+            log_path='./2022.log'
         )
         command = generate_command(script_info)
         self.assertEqual(
             command,
-            'docker run -it --rm --gpus 1 -v volume_path/:/usr/src/myapp -w /usr/src/myapp python:3 python python_path/test.py'
+            'nohup docker run -it --rm --gpus 1 -v volume_path/:/usr/src/myapp -w /usr/src/myapp python:3 python python_path/test.py > ./2022.log &'
         )
     def test_get_images(self):
         get_image_infos()
