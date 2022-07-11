@@ -44,4 +44,4 @@ def generate_command(script_info: ScriptInfo) -> str:
     gpu_id = script_info.gpu_id
     log_path = script_info.log_path
 
-    return f'nohup docker run -it --rm --gpus {gpu_id} -v {volumes} -w {working_dir} {image}:{image_tag} python {target_script} > {log_path} &'
+    return f'nohup docker run -i --rm --gpus {gpu_id} -v {volumes} -w {working_dir} {image}:{image_tag} python {target_script} > {log_path} &'
