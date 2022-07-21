@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+import glob
+import os
 import readline
 import textwrap
 from typing import List
@@ -21,6 +23,9 @@ def input_user(start_time: str):
     ''').strip())
     volume_path = input('\ntarget directory: ')
 
+    python_files = get_python_files(volume_path)
+    completer = Completer(python_files)
+    readline.set_completer(completer.complete)
     print(textwrap.dedent('''
         Input your python file path relative path from volume_path
         If your python file exsit in /home/kensuke/programs/project/run/main.py
@@ -81,6 +86,15 @@ def input_user(start_time: str):
         log_path=log_path + start_time + '.log'
     )
 
+def get_python_files(volume_path: str) -> List[str]:
+    target_path = os.getcwd() if volume_path == '$PWD' else volume_path
+    if target_path[-1] == os.sep:
+        target_path = target_path[:-1]
+    
+    python_files = glob.glob(f'{target_path}/*/*.py', recursive=True)
+    python_files = [python_file.replace(target_path + os.sep, '') for python_file in python_files]
+
+    return python_files
 
 def validate_python_path(file_path: str) -> bool:
     python_path = file_path.split(' ')[0]
