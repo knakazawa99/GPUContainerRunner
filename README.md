@@ -12,6 +12,8 @@
 
 ## :hammer: Develop
 
+> git config --local commit.template .github/.commit_template
+
 :technologist: `run cui`
 > pyton -m gpu_container_runner
 

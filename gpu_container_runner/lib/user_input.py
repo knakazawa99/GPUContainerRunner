@@ -1,13 +1,16 @@
 from dataclasses import dataclass
+import readline
 import textwrap
 from typing import List
 
 from gpu_container_runner.commands.gpu import get_gpu_info
 from gpu_container_runner.commands.docker import get_image_infos
+from gpu_container_runner.lib.completer import Completer
 from gpu_container_runner.value_object.script_info import ScriptInfo
 
 
 def input_user(start_time: str):
+    readline.parse_and_bind("tab: complete")
     print('GO Deepstation!!')
 
     print(textwrap.dedent('''
@@ -37,19 +40,28 @@ def input_user(start_time: str):
     gpu_id = input('\ngpu id: ')
     
     docker_image_infos = get_image_infos()
+    docker_images = list(docker_image_infos.keys())
+    completer = Completer(docker_images)
+    readline.set_completer(completer.complete)
+    
     print(textwrap.dedent('''
         Input docker image name
         exsit images: {}
-    '''.format(docker_image_infos.keys())).strip())
+    '''.format(docker_images)).strip())
     image_name = input('\nimage name: ')
     while not validate_docker_image_name(image_name, docker_image_infos.keys()):
         print('not exist image')
         image_name = input('\nimage name: ')
 
+    docker_image_infos = get_image_infos()
+    docker_tags = docker_image_infos[image_name]
+    completer = Completer(docker_tags)
+    readline.set_completer(completer.complete)
+
     print(textwrap.dedent('''
         Input docker image tag
         exsit images: {}
-    '''.format(docker_image_infos[image_name])).strip())
+    '''.format(docker_tags)).strip())
     image_tag = input('\nimage tag: ')
 
     print(textwrap.dedent('''
@@ -76,3 +88,4 @@ def validate_python_path(file_path: str) -> bool:
 
 def validate_docker_image_name(image_name: str, images: List[str]) -> bool:
     return image_name in images
+    
