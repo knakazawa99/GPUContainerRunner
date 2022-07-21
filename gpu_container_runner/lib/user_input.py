@@ -83,8 +83,8 @@ def input_user(start_time: str):
 
 
 def validate_python_path(file_path: str) -> bool:
-    return file_path.endswith('.py')
-
+    python_path = file_path.split(' ')[0]
+    return python_path.endswith('.py')
 
 def validate_docker_image_name(image_name: str, images: List[str]) -> bool:
     return image_name in images
