@@ -91,7 +91,7 @@ def get_python_files(volume_path: str) -> List[str]:
     if target_path[-1] == os.sep:
         target_path = target_path[:-1]
     
-    python_files = glob.glob(f'{target_path}/*/*.py', recursive=True)
+    python_files = glob.glob(f'{target_path}/**/*.py', recursive=True)
     python_files = [python_file.replace(target_path + os.sep, '') for python_file in python_files]
 
     return python_files
