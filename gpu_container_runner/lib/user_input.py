@@ -13,36 +13,39 @@ from gpu_container_runner.value_object.script_info import ScriptInfo
 
 def input_user(start_time: str):
     readline.parse_and_bind("tab: complete")
-    print('GO Deepstation!!')
+    print('GO Deepstation!!\n')
 
     print(textwrap.dedent('''
-        Input your volume directory path for docker container 
-        ex)
-            ・ $PWD
+        Input the volume directory path to mount with the docker container 
+        Examples:
+            ・ $PWD (current directory)
             ・ /home/kensuke/programs/project        
     ''').strip())
-    volume_path = input('\ntarget directory: ')
+    volume_path = input('\ntarget directory path: ')
+    print()
 
     python_files = get_python_files(volume_path)
     completer = Completer(python_files)
     readline.set_completer(completer.complete)
+    
     print(textwrap.dedent('''
-        Input your python file path relative path from volume_path
-        If your python file exsit in /home/kensuke/programs/project/run/main.py
-        Input `run/main.py`
-        \n
+        Input the python file path (relative path from volume path)
+        If the absolute python file path is /home/kensuke/programs/project/run/main.py
+        & the volume path is /home/kensuke/programs/project
+        Input will be 'run/main.py'
     ''').strip())
     file_path = input('\npython script path: ')
     while not validate_python_path(file_path):
-        print('not include python extension (.py)')
+        print('Invalid input! Python extension (.py) not included or incorrect path')
         file_path = input('python script path: ')
+        print()
 
     gpu_infos = get_gpu_info()
     gpu_usage = [ f'- ID: {gpu_info.id} ({round(gpu_info.memory_usage * 100, 2)}%)' for gpu_info in gpu_infos]
     gpu_info_text = "\n".join(gpu_usage)
-    print('Select use gpu id')
+    print('\nSelect the GPU')
     print(textwrap.dedent(f'{gpu_info_text}'.format(gpu_info_text=gpu_info_text)).strip())
-    gpu_id = input('\ngpu id: ')
+    gpu_id = input('\nGPU ID: ') 
     
     docker_image_infos = get_image_infos()
     docker_images = list(docker_image_infos.keys())
@@ -50,12 +53,12 @@ def input_user(start_time: str):
     readline.set_completer(completer.complete)
     
     print(textwrap.dedent('''
-        Input docker image name
-        exsit images: {}
+        Select the docker image
+        available images: {}
     '''.format(docker_images)).strip())
     image_name = input('\nimage name: ')
     while not validate_docker_image_name(image_name, docker_image_infos.keys()):
-        print('not exist image')
+        print('no such image')
         image_name = input('\nimage name: ')
 
     docker_image_infos = get_image_infos()
@@ -64,18 +67,18 @@ def input_user(start_time: str):
     readline.set_completer(completer.complete)
 
     print(textwrap.dedent('''
-        Input docker image tag
-        exsit images: {}
+        Select the docker image tag
+        available images: {}
     '''.format(docker_tags)).strip())
     image_tag = input('\nimage tag: ')
 
     print(textwrap.dedent('''
-        Input Log path
-        If you don't need the file, input `n`
-        ex)
+        Specify the path to save the log file
+        If you don't need the file, input 'n'
+        Examples)
             ・ ./
     '''.format(gpu_info_text=gpu_info_text)).strip())
-    log_path = input('\nimage tag: ')
+    log_path = input('\nlog file path: ')
 
     return ScriptInfo(
         volume_path=volume_path,
@@ -102,4 +105,3 @@ def validate_python_path(file_path: str) -> bool:
 
 def validate_docker_image_name(image_name: str, images: List[str]) -> bool:
     return image_name in images
-    
