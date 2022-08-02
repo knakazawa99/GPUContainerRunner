@@ -1,9 +1,9 @@
 import logging
 
 logging.basicConfig(
-    format='%(asctime)s %(levelname)s: %(message)s',
-    filemode='log.log',
-    level=logging.DEBUG
+    format="%(asctime)s %(levelname)s: %(message)s",
+    filemode="log.log",
+    level=logging.DEBUG,
 )
 
 
