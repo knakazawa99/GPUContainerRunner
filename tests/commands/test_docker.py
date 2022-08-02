@@ -20,7 +20,8 @@ class TestDocker(TestCase):
         command = generate_command(script_info)
         self.assertEqual(
             command,
-            "nohup docker run -i --rm --gpus 1 -v volume_path/:/usr/src/myapp -w /usr/src/myapp python:3 python python_path/test.py > ./2022.log &",
+            "nohup docker run -i --rm --gpus 1 -v volume_path/:/usr/src/myapp -w /usr/src/myapp python:3 "
+            "python python_path/test.py > ./2022.log &",
         )
 
     def test_get_images(self):

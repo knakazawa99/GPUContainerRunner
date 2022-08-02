@@ -48,15 +48,10 @@ def input_user(start_time: str):
         print()
 
     gpu_infos = get_gpu_info()
-    gpu_usage = [
-        f"- ID: {gpu_info.id} ({round(gpu_info.memory_usage * 100, 2)}%)"
-        for gpu_info in gpu_infos
-    ]
+    gpu_usage = [f"- ID: {gpu_info.id} ({round(gpu_info.memory_usage * 100, 2)}%)" for gpu_info in gpu_infos]
     gpu_info_text = "\n".join(gpu_usage)
     print("\nSelect the GPU")
-    print(
-        textwrap.dedent(f"{gpu_info_text}".format(gpu_info_text=gpu_info_text)).strip()
-    )
+    print(textwrap.dedent(f"{gpu_info_text}".format(gpu_info_text=gpu_info_text)).strip())
     gpu_id = input("\nGPU ID: ")
 
     docker_image_infos = get_image_infos()
@@ -103,9 +98,7 @@ def input_user(start_time: str):
         If you don't need the file, input 'n'
         Examples)
             ・ ./
-    """.format(
-                gpu_info_text=gpu_info_text
-            )
+    """
         ).strip()
     )
     log_path = input("\nlog file path: ")
@@ -126,9 +119,7 @@ def get_python_files(volume_path: str) -> List[str]:
         target_path = target_path[:-1]
 
     python_files = glob.glob(f"{target_path}/**/*.py", recursive=True)
-    python_files = [
-        python_file.replace(target_path + os.sep, "") for python_file in python_files
-    ]
+    python_files = [python_file.replace(target_path + os.sep, "") for python_file in python_files]
 
     return python_files
 

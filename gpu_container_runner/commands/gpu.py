@@ -42,8 +42,7 @@ def generate_gpu_info(lines: List[str]) -> List[GPUInfo]:
         gpu_infos.append(
             GPUInfo(
                 id=gpu_info["index"],
-                memory_usage=float(gpu_info["memory.used"])
-                / float(gpu_info["memory.total"]),
+                memory_usage=float(gpu_info["memory.used"]) / float(gpu_info["memory.total"]),
             )
         )
 
