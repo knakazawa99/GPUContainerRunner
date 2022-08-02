@@ -4,7 +4,7 @@
 ## :white_check_mark: Setup
 
 :rocket: `install`
-> sudo python setup.py develop  
+> poetry build
 > sudo pip install -e .
 
 :fire: `uninstall`
@@ -12,10 +12,10 @@
 
 ## :hammer: Develop
 
-> git config --local commit.template .github/.commit_template
+> make setup
 
 :technologist: `run cui`
-> pyton -m gpu_container_runner
+> poetry run python gpu_container_runner 
 
 :test_tube: `run test`
-> python -m tests
+> make test

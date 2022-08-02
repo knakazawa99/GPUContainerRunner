@@ -12,6 +12,7 @@ input()
 """
 from typing import List
 
+
 class Completer:
     def __init__(self, words: List[str]):
         self.words = words
@@ -19,9 +20,7 @@ class Completer:
 
     def complete(self, prefix, index):
         if prefix != self.prefix:
-            self.matching_words = [
-                w for w in self.words if w.startswith(prefix)
-                ]
+            self.matching_words = [w for w in self.words if w.startswith(prefix)]
             self.prefix = prefix
         try:
             return self.matching_words[index]
