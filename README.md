@@ -1,10 +1,12 @@
+![CI](https://github.com/KensukeNakazawa/GPUContainerRunner/actions/workflows/ci.yaml/badge.svg)
+
 ## :bulb: Overview
 研究室の計算機サーバーで Dockerコンテナ上での Pythonプログラムを実行しやすくする
 
 ## :white_check_mark: Setup
 
 :rocket: `install`
-> poetry build
+> poetry build  
 > sudo pip install -e .
 
 :fire: `uninstall`
