@@ -11,6 +11,6 @@ setup:
 	poetry install
 	git config --local commit.template .github/.commit_template
 
-.PGONY: test
+.PHONY: test
 test:
 	poetry run pytest -v -p no:warning --cov=gpu_container_runner
