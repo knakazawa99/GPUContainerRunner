@@ -5,8 +5,8 @@ linter:
 .PHONY: format
 format:
 	poetry run isort -rc -sl .
-	poetry run autoflake -ri --remove-all-unused-imports --ignore-init-module-imports --remove-unused-variables --max-line-length 120 .
-	poetry run black .
+	poetry run autoflake -ri --remove-all-unused-imports --ignore-init-module-imports --remove-unused-variables .
+	poetry run black --line-length 120 .
 	poetry run isort -rc -m 3 .
 
 .PHONY: setup
