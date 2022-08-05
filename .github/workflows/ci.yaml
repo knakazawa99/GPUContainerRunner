@@ -49,7 +49,7 @@ jobs:
       - name: Create Coverage Badge
         uses: schneegans/dynamic-badges-action@v1.4.0
         with:
-            auth: ${{ secrets.BADGE_GIST }}
+            auth: ${{ secrets.BADGE_SECRET }}
             gistID: 27de0c03b88fd9d4bc03c3c28f628ebc
             filename: pytest-coverage-comment.json
             label: Coverage
