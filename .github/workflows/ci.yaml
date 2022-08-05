@@ -8,7 +8,13 @@ on:
     paths:
       - 'gpu_container_runner/**.py'
       - 'tests/**.py'
+
+  pull_request:
+    types: [opened, reopened]
+
   workflow_dispatch:
+
+permissions: write-all
 
 jobs:
   CI:
@@ -31,4 +37,22 @@ jobs:
         run: make linter
 
       - name: Test
-        run: make test
+        run: make test-ci
+
+      - name: Create Coverage Comment
+        id: coverageComment
+        uses: MishaKav/pytest-coverage-comment@main
+        with:
+          pytest-coverage-path: pytest-coverage.txt
+          junitxml-path: ./pytest.xml
+
+      - name: Create Coverage Badge
+        uses: schneegans/dynamic-badges-action@v1.4.0
+        with:
+            auth: ${{ secrets.BADGE_GIST }}
+            gistID: 27de0c03b88fd9d4bc03c3c28f628ebc
+            filename: pytest-coverage-comment.json
+            label: Coverage
+            message: ${{ steps.coverageComment.outputs.coverage }}
+            color: ${{ steps.coverageComment.outputs.color }}
+            namedLogo: python

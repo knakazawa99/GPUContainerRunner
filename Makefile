@@ -17,3 +17,7 @@ setup:
 .PHONY: test
 test:
 	poetry run pytest -v -p no:warning --cov=gpu_container_runner
+
+.PHONY: test-ci
+test-ci:
+	poetry run pytest -v --cov=gpu_container_runner --junitxml=pytest.xml --cov-report=term-missing:skip-covered | tee pytest-coverage.txt
