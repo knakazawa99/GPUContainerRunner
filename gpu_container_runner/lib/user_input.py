@@ -83,7 +83,7 @@ def input_user(start_time: str):
         textwrap.dedent(
             """
         Select the docker image tag
-        available images: {}
+        available tags: {}
     """.format(
                 docker_tags
             )
