@@ -7,12 +7,13 @@ from typing import List
 from gpu_container_runner.commands.docker import get_image_infos
 from gpu_container_runner.commands.gpu import get_gpu_info
 from gpu_container_runner.lib.completer import Completer
+from gpu_container_runner.lib.logger import Logger
 from gpu_container_runner.value_object.script_info import ScriptInfo
 
 
 def input_user(start_time: str):
     readline.parse_and_bind("tab: complete")
-    print("GO Deepstation!!\n")
+    Logger.info("GO Deepstation!!\n")
 
     print(
         textwrap.dedent(
@@ -43,7 +44,7 @@ def input_user(start_time: str):
     )
     file_path = input("\npython script path: ")
     while not validate_python_path(file_path):
-        print("Invalid input! Python extension (.py) not included or incorrect path")
+        Logger.warning("Invalid input! Python extension (.py) not included or incorrect path")
         file_path = input("python script path: ")
         print()
 
@@ -71,7 +72,7 @@ def input_user(start_time: str):
     )
     image_name = input("\nimage name: ")
     while not validate_docker_image_name(image_name, docker_image_infos.keys()):
-        print("no such image")
+        Logger.warning("no such image")
         image_name = input("\nimage name: ")
 
     docker_image_infos = get_image_infos()
