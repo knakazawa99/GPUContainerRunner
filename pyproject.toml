@@ -18,7 +18,7 @@ autoflake = "^1.4"
 black = "^22.6.0"
 
 [tool.poetry.scripts]
-run-gpu = "gpu_container_runner.__main__:main"
+run-gpu = "run_gpu:main"
 
 [tool.black]
 line-length = 120

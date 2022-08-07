@@ -15,7 +15,7 @@ def get_gpu_info() -> List[GPUInfo]:
     output = run_nvidia_smi()
 
     if not output:
-        return [GPUInfo(id="-1", memory_usage="0")]
+        return [GPUInfo(id="-1", memory_usage=0.0)]
 
     lines = output.decode().split("\n")
     lines = [line.strip() for line in lines if line.strip() != ""]
@@ -23,7 +23,7 @@ def get_gpu_info() -> List[GPUInfo]:
     return generate_gpu_info(lines)
 
 
-def run_nvidia_smi() -> Union[str, bool]:
+def run_nvidia_smi() -> Union[bytes, bool]:
     query_gpu = ",".join(GPU_QUERY)
     command = f"nvidia-smi --query-gpu={query_gpu} --format=csv,noheader,nounits"
     try:
