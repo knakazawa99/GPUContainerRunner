@@ -36,8 +36,8 @@ def get_image_infos() -> Dict[str, List[str]]:
 
 
 def generate_command(script_info: ScriptInfo) -> str:
-    volumes = f"{script_info.volume_path}/:/usr/src/myapp"
-    working_dir = "/usr/src/myapp"
+    working_dir = "/var/app"
+    volumes = f"{script_info.volume_path}/:{working_dir}"
     image = script_info.image_name
     image_tag = script_info.image_tag
     target_script = script_info.python_path
