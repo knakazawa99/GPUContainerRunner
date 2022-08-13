@@ -3,7 +3,7 @@ from unittest import TestCase
 from gpu_container_runner.commands.docker import (
     generate_command,
     get_image_infos,
-    run_docker_command
+    run_docker_command,
 )
 from gpu_container_runner.value_object.script_info import ScriptInfo
 
@@ -50,6 +50,6 @@ class TestDocker(TestCase):
         command = generate_command(script_info)
         self.assertEqual(
             command,
-            "nohup docker run -i --rm --gpus 1 -v volume_path/:/usr/src/myapp -w /usr/src/myapp python:3 "
+            "nohup docker run -i --rm --gpus 1 -v volume_path/:/var/app -w /var/app python:3 "
             "python python_path/test.py > ./2022.log &",
         )
