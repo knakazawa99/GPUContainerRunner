@@ -11,7 +11,7 @@ format:
 
 .PHONY: setup
 setup:
-    pre-commit install
+	pre-commit install
 	poetry install
 	git config --local commit.template .github/.commit_template
 

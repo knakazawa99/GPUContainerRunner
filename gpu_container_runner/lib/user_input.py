@@ -3,6 +3,7 @@ import os
 import readline
 import textwrap
 from typing import List
+from uuid import UUID
 
 from gpu_container_runner.commands.docker import get_image_infos
 from gpu_container_runner.commands.gpu import get_gpu_info
@@ -11,17 +12,17 @@ from gpu_container_runner.lib.logger import Logger
 from gpu_container_runner.value_object.script_info import ScriptInfo
 
 
-def input_user(start_time: str):
+def input_user(job_id: UUID):
     readline.parse_and_bind("tab: complete")
     Logger.info("GO Deepstation!!\n")
 
     print(
         textwrap.dedent(
             """
-        Input the volume directory path to mount with the docker container 
+        Input the volume directory path to mount with the docker container
         Examples:
             ・ $PWD (current directory)
-            ・ /home/kensuke/programs/project        
+            ・ /home/kensuke/programs/project
     """
         ).strip()
     )
@@ -110,7 +111,7 @@ def input_user(start_time: str):
         gpu_id=gpu_id,
         image_name=image_name,
         image_tag=image_tag,
-        log_path=log_path + start_time + ".log",
+        log_path=f"{log_path}{job_id}.log",
     )
 
 
