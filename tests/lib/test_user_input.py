@@ -1,12 +1,12 @@
 import io
-import time
+import uuid
 from unittest import TestCase
 
 from gpu_container_runner.lib.user_input import (
     get_python_files,
     input_user,
     validate_docker_image_name,
-    validate_python_path
+    validate_python_path,
 )
 from gpu_container_runner.value_object.script_info import ScriptInfo
 
@@ -28,15 +28,15 @@ def test_input_user(monkeypatch, mocker):
     mock_for_input_user(monkeypatch, mocker)
     # 標準入力をモック
     monkeypatch.setattr("sys.stdin", io.StringIO("$PWD\ntest.py\n1\ntest/image\n1.0\n./\n"))
-    start = time.strftime("%Y%m%d%H%M")
-    result = input_user(start)
+    job_id = uuid.uuid4()
+    result = input_user(job_id)
     expect = ScriptInfo(
         volume_path="$PWD",
         python_path="test.py",
         gpu_id="1",
         image_name="test/image",
         image_tag="1.0",
-        log_path=f"./{start}.log",
+        log_path=f"./{job_id}.log",
     )
     assert result == expect
 
@@ -46,15 +46,15 @@ def test_input_user_python(monkeypatch, mocker):
     mock_for_input_user(monkeypatch, mocker)
     # 標準入力をモック
     monkeypatch.setattr("sys.stdin", io.StringIO("$PWD\ntest\ntest.py\n1\ntest\ntest/image\n1.0\n./\n"))
-    start = time.strftime("%Y%m%d%H%M")
-    result = input_user(start)
+    job_id = uuid.uuid4()
+    result = input_user(job_id)
     expect = ScriptInfo(
         volume_path="$PWD",
         python_path="test.py",
         gpu_id="1",
         image_name="test/image",
         image_tag="1.0",
-        log_path=f"./{start}.log",
+        log_path=f"./{job_id}.log",
     )
     assert result == expect
 
@@ -63,15 +63,15 @@ def test_input_user_docker(monkeypatch, mocker):
     """Input Docker Image Name 2 times"""
     mock_for_input_user(monkeypatch, mocker)
     monkeypatch.setattr("sys.stdin", io.StringIO("$PWD\ntest.py\n1\ntest\ntest/image\n1.0\n./\n"))
-    start = time.strftime("%Y%m%d%H%M")
-    result = input_user(start)
+    job_id = uuid.uuid4()
+    result = input_user(job_id)
     expect = ScriptInfo(
         volume_path="$PWD",
         python_path="test.py",
         gpu_id="1",
         image_name="test/image",
         image_tag="1.0",
-        log_path=f"./{start}.log",
+        log_path=f"./{job_id}.log",
     )
     assert result == expect
 

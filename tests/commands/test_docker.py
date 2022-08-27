@@ -1,3 +1,4 @@
+import uuid
 from unittest import TestCase
 
 from gpu_container_runner.commands.docker import (
@@ -13,10 +14,12 @@ def test_run_docker_command(mocker):
     subprocess_mock_value = b"test clear \n " b"test done\n"
     mocker.patch("gpu_container_runner.commands.docker.generate_command", return_value=cmd_mock_value)
     mocker.patch("subprocess.check_output", return_value=subprocess_mock_value)
+    job_id = uuid.uuid4()
     result = run_docker_command(
         ScriptInfo(
             gpu_id="1", python_path="hoge.py", volume_path="./", image_name="test", image_tag="1.0", log_path="./"
-        )
+        ),
+        job_id,
     )
     expect_value = ["test clear", "test done"]
     assert result == expect_value
@@ -47,9 +50,10 @@ class TestDocker(TestCase):
             image_tag="3",
             log_path="./2022.log",
         )
-        command = generate_command(script_info)
+        job_id = uuid.uuid4()
+        command = generate_command(script_info, job_id)
         self.assertEqual(
             command,
-            "nohup docker run -i --rm --gpus 1 -v volume_path/:/var/app -w /var/app python:3 "
-            "python python_path/test.py > ./2022.log &",
+            f"nohup docker run -i --rm --gpus 1 -v volume_path/:/var/app -w /var/app --name {job_id}"
+            "python:3 python python_path/test.py > ./2022.log &",
         )

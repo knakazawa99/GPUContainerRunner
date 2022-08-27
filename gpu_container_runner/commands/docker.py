@@ -1,12 +1,13 @@
 import subprocess
 from typing import Dict, List
+from uuid import UUID
 
 from gpu_container_runner.value_object.script_info import ScriptInfo
 
 
-def run_docker_command(script_info: ScriptInfo) -> List[str]:
+def run_docker_command(script_info: ScriptInfo, job_id: UUID) -> List[str]:
 
-    cmd = generate_command(script_info)
+    cmd = generate_command(script_info, job_id)
     output = subprocess.check_output(cmd, shell=True)
 
     lines = output.decode().split("\n")
@@ -35,7 +36,7 @@ def get_image_infos() -> Dict[str, List[str]]:
     return docker_image_info
 
 
-def generate_command(script_info: ScriptInfo) -> str:
+def generate_command(script_info: ScriptInfo, job_id: UUID) -> str:
     working_dir = "/var/app"
     volumes = f"{script_info.volume_path}/:{working_dir}"
     image = script_info.image_name
@@ -45,6 +46,6 @@ def generate_command(script_info: ScriptInfo) -> str:
     log_path = script_info.log_path
 
     return (
-        f"nohup docker run -i --rm --gpus {gpu_id} -v {volumes} -w {working_dir} "
+        f"nohup docker run -i --rm --gpus {gpu_id} -v {volumes} -w {working_dir} --name {job_id}"
         f"{image}:{image_tag} python {target_script} > {log_path} &"
     )
